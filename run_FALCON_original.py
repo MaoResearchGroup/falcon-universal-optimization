@@ -1,3 +1,10 @@
+"""LEGACY DEMO RUNNER
+
+Use run_FALCON.py for new universal datasets. This file preserves the
+original RAMOS/THP1 demo configuration and still contains LNP-specific
+example columns such as Ionizable_lipid and Helper_lipid.
+"""
+
 
 from falcon_engine.utilities import extract_training_data, init_pipeline, save_pipeline, startup_banner
 from falcon_engine.run_Model_Selection import run_Model_Selection 

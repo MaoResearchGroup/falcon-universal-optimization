@@ -137,6 +137,21 @@ Notebooks in the [`notebooks/`](notebooks/) directory are provided as interactiv
 - Charles Shin  
 - Brandon Chang
 
+
+
+## Which Runner Should I Use?
+
+Use `run_FALCON.py` for new datasets. It is the canonical universal entry point. Configure only:
+
+- `DATASET_NAME` / `RUN_NAME`
+- `input_param_names`
+- `MAX_cell_targets` / `MIN_cell_targets`
+- optional `raw_suggestion_bounds` overrides
+
+`run_FALCON_NP.py` is kept as the current nanoparticle example configuration. `run_FALCON_original.py` is a legacy RAMOS/THP1 demo runner retained for reference.
+
+LNP-specific names such as `Ionizable_lipid` and `Helper_lipid` are not required for universal training or optimization. They may still appear in old demo datasets and in the optional MANTIS formatter, which is a legacy liquid-handler export path for the original LNP composition format. For generic datasets, leave `run_mantis_formatter = False` and leave `carry_forward_metadata_cols = []`.
+
 ## Universal Input Parameter Names
 
 This copy supports arbitrary numeric input feature columns. Configure each run by editing `run_FALCON_NP.py`:
