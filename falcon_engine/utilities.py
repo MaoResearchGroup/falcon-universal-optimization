@@ -150,16 +150,26 @@ def extract_training_data(pipeline):
         raise KeyError(f"Input parameter columns missing from {data_path}: {missing_params}")
 
     helper_col = next((col for col in ['Helper_lipid', 'Solvent'] if col in df.columns), None)
+    batch_col = next((col for col in ['batch', 'Batch'] if col in df.columns), None)
+    fraction_col = next((col for col in ['Fraction', 'fraction', 'Column1'] if col in df.columns), None)
 
     metadata_cols = [formula_col]
     if helper_col is not None:
         metadata_cols.append(helper_col)
+    if batch_col is not None:
+        metadata_cols.append(batch_col)
+    if fraction_col is not None:
+        metadata_cols.append(fraction_col)
 
     #Formatting Training Data
     raw_data = df[metadata_cols + input_params + [target_col]].copy()
     raw_data = raw_data.rename(columns={formula_col: 'Formula_label', target_col: prefix + cell_type})
     if helper_col is not None:
         raw_data = raw_data.rename(columns={helper_col: 'Helper_lipid'})
+    if batch_col is not None:
+        raw_data = raw_data.rename(columns={batch_col: 'Batch'})
+    if fraction_col is not None:
+        raw_data = raw_data.rename(columns={fraction_col: 'Fraction'})
     raw_data = raw_data.dropna() #Remove any NaN rows
 
     processed_data = raw_data.copy()

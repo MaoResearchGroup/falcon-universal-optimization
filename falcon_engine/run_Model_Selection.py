@@ -46,7 +46,8 @@ def run_Model_Selection(pipeline):
                                                                             'Test_MAE': None,
                                                                             'Test_spear':None,
                                                                             'Test_pear': None,
-                                                                            'Test_pred': None}
+                                                                            'Test_pred': None,
+                                                                            'Final_split': None}
                                                         }
 
     model_instance = NESTED_CV(model_name) #Initialize Model
@@ -98,6 +99,14 @@ def run_Model_Selection(pipeline):
     pipeline['Model_Selection']['NESTED_CV'][model_name]['Final_model']['Test_spear'] = final_spear
     pipeline['Model_Selection']['NESTED_CV'][model_name]['Final_model']['Test_pear'] = final_pears
     pipeline['Model_Selection']['NESTED_CV'][model_name]['Final_model']['Test_pred'] = pred_df
+    pipeline['Model_Selection']['NESTED_CV'][model_name]['Final_model']['Final_split'] = {
+        'CV_loop_formula_labels': list(model_instance.F_cv_loop),
+        'Final_test_formula_labels': list(model_instance.F_final_test),
+        'CV_loop_fractions': list(model_instance.Split_Group_cv_loop) if model_instance.Split_Group_cv_loop is not None else None,
+        'Final_test_fractions': list(model_instance.Split_Group_final_test) if model_instance.Split_Group_final_test is not None else None,
+        'CV_loop_batches': list(model_instance.Batch_cv_loop) if model_instance.Batch_cv_loop is not None else None,
+        'Final_test_batches': list(model_instance.Batch_final_test) if model_instance.Batch_final_test is not None else None,
+    }
 
     #Create a df for all Model selection results across different models
     model_selection_results.at[model_name, 'Model'] = model_instance.best_model

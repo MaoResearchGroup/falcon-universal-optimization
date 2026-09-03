@@ -53,7 +53,7 @@ def main():
 
   ############### STEP 2: CELL TYPES AND OBJECTIVE CONFIGURATION #######
   # ex. cell types used in manuscript ['RAMOS','DC','3T3','C2C12'] 
-  MAX_cell_targets = ['Release D30'] # set as empty list if no maximization is desired (not '')
+  MAX_cell_targets = ['Transfection (%)'] # set as empty list if no maximization is desired (not '')
   MIN_cell_targets = [] # set as empty list if no minimization is desired (not '') 
   
   nLnLE_floor = -100 #minimum cutoff for output values. nLnLE values are already blank normalized, so not needed. 
@@ -63,8 +63,8 @@ def main():
   cell_type_list = MAX_cell_targets + MIN_cell_targets 
 
   ################ STEP 3: LOAD AND SAVE PATH CONFIGURATION #############
-  RUN_NAME = "PLGA_PEC_80" #Give a name for run folder to save any trained models
-  DATASET_NAME = 'PLGA_PEC_80' #Name of the csv file, used to extract training data
+  RUN_NAME = "09.02_Multivariable_analysis_v1_triplicate_averaged" #Give a name for run folder to save any trained models
+  DATASET_NAME = '09.02_Multivariable_analysis_v1_triplicate_averaged' #Name of the csv file, used to extract training data
 
   ################ STEP 4: PIPELINE COMPONENTS CONFIGURATION #############
   run_model_training = True # set true unless model is already trained and saved in output folder
@@ -83,7 +83,7 @@ def main():
 
   # Input_Params (features to be used for model training and prediction) 
   # remove for now - 'NP_ratio',
-  input_param_names = ['Solvent_Polarity','DS_MW','DS Concentration','Polymer_MW','Polymer concentration']
+  input_param_names = ['Formulation','Dose','Payload',	'Empty%',	'Size']
 
   if run_model_training == True:  
     training_start = time.time()
